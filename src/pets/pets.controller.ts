@@ -1,9 +1,10 @@
 import { Controller, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
 
-@Controller('pet')
-export class PetController {
-    // tslint:disable-next-line: no-empty
+@Controller('pets')
+export class PetsController {
+
+     // tslint:disable-next-line: no-empty
     constructor() { }
 
     @Get()

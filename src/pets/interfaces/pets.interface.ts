@@ -1,4 +1,4 @@
-export interface ParticularData {
+export interface Pets {
     id: number;
     name: string;
     birthDate: Date;

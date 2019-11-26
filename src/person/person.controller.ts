@@ -6,12 +6,15 @@ import { PersonService } from './person.service';
 @Controller('person')
 export class PersonController {
 
-    constructor(private readonly personService: PersonService) {
-
-    }
+    constructor(private readonly personService: PersonService) {   }
     @Get(':id')
     find(@Req() req: Request): string {
         return `The person with the id: ${req.params.id}`;
+    }
+    @Get()
+    findAll(){
+        return this.personService.findAll();
+
     }
 
     @Post()

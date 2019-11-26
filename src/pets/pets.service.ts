@@ -8,7 +8,9 @@ import { PetsSchema } from './schemas/pets.schema';
 
 @Injectable()
 export class PetsService {
-    constructor(@InjectModel(PetsSchema) private readonly petsModel: Model<Pets>) {}
+
+    constructor(@InjectModel('Pet') private readonly petsModel: Model<Pets>) {}
+
     async findAll() {
         return await this.petsModel.find().exec();
     }

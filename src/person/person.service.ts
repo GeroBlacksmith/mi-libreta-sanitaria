@@ -9,7 +9,7 @@ import { CreatePersonDto } from './dto/create-person.dto';
 
 @Injectable()
 export class PersonService {
-    constructor(@InjectModel(PersonSchema) private readonly personModel: Model<Person>) {}
+    constructor(@InjectModel('Person') private readonly personModel: Model<Person>) {}
     async findAll() {
         return await this.personModel.find().exec();
     }

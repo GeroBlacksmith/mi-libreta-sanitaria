@@ -9,6 +9,6 @@ import { PetsService } from './pets.service';
 @Module({
     imports: [MongooseModule.forFeature([{ name: 'Pet', schema: PetsSchema }])],
     controllers: [PetsController],
-    providers: [],
+    providers: [PetsService],
 })
 export class PetsModule {}

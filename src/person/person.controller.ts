@@ -8,11 +8,11 @@ export class PersonController {
 
     constructor(private readonly personService: PersonService) {   }
     @Get(':id')
-    find(@Req() req: Request): string {
-        return `The person with the id: ${req.params.id}`;
+    find(@Req() req: Request) {
+        return this.personService.findOne(req.params.id);
     }
     @Get()
-    findAll(){
+    findAll() {
         return this.personService.findAll();
 
     }

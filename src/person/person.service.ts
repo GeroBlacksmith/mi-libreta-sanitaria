@@ -13,7 +13,9 @@ export class PersonService {
     async findAll() {
         return await this.personModel.find().exec();
     }
-
+    async findOne(id) {
+        return await this.personModel.findOne({_id: id}).exec();
+    }
     async create(createPersonDto: CreatePersonDto): Promise<Person> {
         const createPerson = new this.personModel(createPersonDto);
         return await createPerson.save();

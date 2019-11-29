@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Post, Body } from '@nestjs/common';
+import { Controller, Get, Req, Post, Body, Delete, Param, Put } from '@nestjs/common';
 import { Request } from 'express';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
@@ -27,7 +27,14 @@ export class PetsController {
     }
 
     @Post()
-    async savePet(@Body() createPetDto: CreatePetDto ) {
+    async save(@Body() createPetDto: CreatePetDto ) {
         await this.petService.create(createPetDto);
+        return 'Creado';
+    }
+
+    @Put(':id/update')
+    async update(@Param('id') id, @Body() createPetDto: CreatePetDto ) {
+        const updatedPet = await this.petService.update(id, createPetDto);
+        return updatedPet;
     }
 }

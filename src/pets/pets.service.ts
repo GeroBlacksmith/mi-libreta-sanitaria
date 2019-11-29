@@ -24,4 +24,8 @@ export class PetsService {
         const createPet = new this.petsModel(createPetDto);
         return await createPet.save();
     }
+    async update(id: any, createPetDto: CreatePetDto) {
+        const updatePet = await this.petsModel.findOneAndUpdate(id, createPetDto);
+        return updatePet;
+    }
 }

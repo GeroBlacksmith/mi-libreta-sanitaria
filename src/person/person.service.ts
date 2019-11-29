@@ -20,4 +20,8 @@ export class PersonService {
         const createPerson = new this.personModel(createPersonDto);
         return await createPerson.save();
     }
+    async update(id, createPersonDto) {
+        const updatedPerson = await this.personModel.findOneAndUpdate(id, createPersonDto);
+        return updatedPerson;
+    }
 }

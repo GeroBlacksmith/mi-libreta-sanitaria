@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Body, Post } from '@nestjs/common';
+import { Controller, Get, Req, Body, Post, Put, Param, Res } from '@nestjs/common';
 import { Request } from 'express';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { PersonService } from './person.service';
@@ -14,12 +14,19 @@ export class PersonController {
     @Get()
     findAll() {
         return this.personService.findAll();
-
     }
-
     @Post()
-    async save(@Body() createPersonDto: CreatePersonDto) {
-        await this.personService.create(createPersonDto);
+    async save(@Res() res, @Body() createPersonDto: CreatePersonDto) {
+        return this.personService.create(createPersonDto).then(
+            person => person,
+            error => error,
+        );
     }
-
+    @Put(':id/update')
+    async update(@Param('id') id, @Body() createPersonDto: CreatePersonDto) {
+        return this.personService.update(id, createPersonDto).then(
+            person => person,
+            error => error,
+        );
+    }
 }

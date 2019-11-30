@@ -1,32 +1,59 @@
-import { Controller, Get, Req, Body, Post, Put, Param, Res } from '@nestjs/common';
+import { Controller, Get, Req, Body, Post, Put, Param, Res, HttpStatus, NotFoundException, Query, Delete } from '@nestjs/common';
 import { Request } from 'express';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { PersonService } from './person.service';
 
-@Controller('person')
+@Controller('persons')
 export class PersonController {
 
     constructor(private readonly personService: PersonService) {   }
-    @Get(':id')
-    find(@Req() req: Request) {
-        return this.personService.findOne(req.params.id);
-    }
+
     @Get()
-    findAll() {
-        return this.personService.findAll();
+    async getAllPersons(@Res() res) {
+        const persons = await this.personService.findAll();
+        return res.status(HttpStatus.OK).json(persons);
     }
+
+    @Get(':id')
+    async gerPerson(@Res() res, @Param('id') id) {
+        const person = await this.personService.findOne(id);
+        if (!person) {
+            throw new NotFoundException('Person no found');
+        }
+        return res.status(HttpStatus.OK).json(person);
+    }
+
     @Post()
     async save(@Res() res, @Body() createPersonDto: CreatePersonDto) {
-        return this.personService.create(createPersonDto).then(
-            person => person,
-            error => error,
-        );
+        const person = await this.personService.create(createPersonDto);
+        return res.status(HttpStatus.OK).json({
+            message: 'Created correctly',
+            person,
+        });
     }
+
     @Put(':id/update')
-    async update(@Param('id') id, @Body() createPersonDto: CreatePersonDto) {
-        return this.personService.update(id, createPersonDto).then(
-            person => person,
-            error => error,
-        );
+    async update(@Res() res, @Query('id') id, @Body() createPersonDto: CreatePersonDto) {
+        const person = await this.personService.update(id, createPersonDto);
+        if (!person) {
+            throw new NotFoundException('Person no found');
+        }
+        return res.status(HttpStatus.OK).json({
+            message: 'Updated correctly',
+            person,
+        });
+    }
+    // TODO: safe delete if person have pets
+    @Delete(':id')
+    async delete(@Res() res, @Query('id') id) {
+        const person = await this.personService.delete(id);
+        if (!person) {
+            throw new NotFoundException('Person not found');
+        }
+        return res.status(HttpStatus.OK).json({
+            message: 'Deleted correctly',
+            person,
+        });
+
     }
 }

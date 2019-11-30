@@ -9,19 +9,27 @@ import { CreatePersonDto } from './dto/create-person.dto';
 
 @Injectable()
 export class PersonService {
+
     constructor(@InjectModel('Person') private readonly personModel: Model<Person>) {}
-    async findAll() {
-        return await this.personModel.find().exec();
+    async findAll(): Promise<Person[]> {
+        const persons = await this.personModel.find().exec();
+        return persons;
     }
-    async findOne(id) {
-        return await this.personModel.findOne({_id: id}).exec();
+    async findOne(id): Promise<Person> {
+        const person = await this.personModel.findOne({_id: id}).exec();
+        return person;
     }
     async create(createPersonDto: CreatePersonDto): Promise<Person> {
-        const createPerson = new this.personModel(createPersonDto);
-        return await createPerson.save();
+        const createPerson = await this.personModel(createPersonDto);
+        return createPerson.save();
     }
-    async update(id, createPersonDto) {
-        const updatedPerson = await this.personModel.findOneAndUpdate(id, createPersonDto);
+    async update(id, createPersonDto): Promise<Person> {
+        const updatedPerson = await this.personModel.findOneAndUpdate(id, createPersonDto, {new: true} );
         return updatedPerson;
+    }
+    // TODO: safe delete if person have pets
+    async delete(id: any): Promise<any> {
+        const deletedPerson = await this.personModel.findOneAndDelete(id);
+        return deletedPerson;
     }
 }

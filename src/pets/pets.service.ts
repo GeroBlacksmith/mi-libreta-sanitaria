@@ -10,7 +10,6 @@ import { PersonSchema } from '../person/schemas/person.schema';
 
 @Injectable()
 export class PetsService {
-
     constructor(@InjectModel('Pet') private readonly petsModel: Model<Pets>) {}
 
     async findAll() {
@@ -27,5 +26,14 @@ export class PetsService {
     async update(id: any, createPetDto: CreatePetDto) {
         const updatePet = await this.petsModel.findOneAndUpdate(id, createPetDto);
         return updatePet;
+    }
+
+    async getAllFromPropietary(propietaryId): Promise<Pets[]> {
+        const petsFromPropietary = await this.petsModel.find({propietary: propietaryId});
+        return petsFromPropietary;
+    }
+    async delete(id: any) {
+        const deletedPet = await this.petsModel.findOneAndDelete(id);
+        return deletedPet;
     }
 }

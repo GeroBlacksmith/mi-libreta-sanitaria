@@ -10,7 +10,7 @@ import { CreatePersonDto } from './dto/create-person.dto';
 @Injectable()
 export class PersonService {
 
-    constructor(@InjectModel('Person') private readonly personModel: Model<Person>) {}
+    constructor(@InjectModel('Person') private readonly personModel: Model<Person> ) {}
     async findAll(): Promise<Person[]> {
         const persons = await this.personModel.find().exec();
         return persons;
@@ -29,7 +29,19 @@ export class PersonService {
     }
     // TODO: safe delete if person have pets
     async delete(id: any): Promise<any> {
+        // const petsFromPropietary = await this.petSevice.getAllFromPropietary(id);
+        // petsFromPropietary.forEach( pet => {
+        //     this.petSevice.delete(pet.id);
+        // });
         const deletedPerson = await this.personModel.findOneAndDelete(id);
         return deletedPerson;
+    }
+    async disable(id): Promise<any> {
+        const updatedPerson = await this.personModel.findOneAndUpdate(id, {active: false}, {new: true} );
+        return updatedPerson;
+    }
+    async enable(id): Promise<any> {
+        const updatedPerson = await this.personModel.findOneAndUpdate(id, {active: true}, {new: true} );
+        return updatedPerson;
     }
 }

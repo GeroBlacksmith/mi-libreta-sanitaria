@@ -4,5 +4,5 @@ export interface Pets {
     birthDate: Date;
     race: string;
     color: string;
-    propietary: number; // Person id
+    propietary: string; // Person id
 }

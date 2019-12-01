@@ -54,6 +54,27 @@ export class PersonController {
             message: 'Deleted correctly',
             person,
         });
-
+    }
+    @Put(':id/disable')
+    async disable(@Res() res, @Query('id') id) {
+        const person = await this.personService.disable(id);
+        if (!person) {
+            throw new NotFoundException('Person no found');
+        }
+        return res.status(HttpStatus.OK).json({
+            message: 'Disabled correctly',
+            person,
+        });
+    }
+    @Put(':id/enable')
+    async enable(@Res() res, @Query('id') id) {
+        const person = await this.personService.disable(id);
+        if (!person) {
+            throw new NotFoundException('Person no found');
+        }
+        return res.status(HttpStatus.OK).json({
+            message: 'Disabled correctly',
+            person,
+        });
     }
 }

@@ -5,7 +5,7 @@ import { PersonSchema } from './schemas/person.schema';
 import { PersonService } from './person.service';
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: 'Person', schema: PersonSchema }])],
+    imports: [ MongooseModule.forFeature([{ name: 'Person', schema: PersonSchema }])],
     controllers: [PersonController],
     providers: [PersonService],
 })

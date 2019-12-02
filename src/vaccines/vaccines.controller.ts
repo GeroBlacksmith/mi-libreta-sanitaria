@@ -1,10 +1,9 @@
-import { Controller, Get, Post, Res, Param, NotFoundException, HttpStatus, Query, Body } from '@nestjs/common';
+import { Controller, Get, Post, Res, Param, NotFoundException, HttpStatus, Query, Body, Put } from '@nestjs/common';
 import { VaccinesService } from './vaccines.service';
 import { CreateVaccineDto } from './dto/create-vaccine.dto';
 
 @Controller('vaccines')
 export class VaccinesController {
-    // tslint:disable-next-line: no-empty
     constructor(private vaccinesService: VaccinesService) {}
 
     @Get('pet/:petid')
@@ -16,6 +15,12 @@ export class VaccinesController {
         return res.status(HttpStatus.OK).json(vaccines);
     }
 
+    @Get('list')
+    async listVaccines(@Res() res) {
+        const listVaccines = await this.vaccinesService.listVaccines();
+        return res.status(HttpStatus.OK).json(listVaccines);
+    }
+
     @Post()
     async submitAVaccineToAPet(@Res() res, @Body() createVaccineDto: CreateVaccineDto) {
         const vaccination = await this.vaccinesService.submitVaccination(createVaccineDto);
@@ -25,4 +30,9 @@ export class VaccinesController {
         });
     }
 
+    @Put('id')
+    async udpateVaccineRegiter(@Res() res, @Param('id') id, createVaccineDto: CreateVaccineDto) {
+        // const vaccination = await this.vaccinesService.
+        return await null;
+    }
 }

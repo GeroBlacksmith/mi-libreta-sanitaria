@@ -1,5 +1,5 @@
-export interface ParasitologicalControl {
-    pet: number; // particular data id
+export interface Parasitologicals  {
+    pet: number;
     dateOfControl: Date;
     coproparasitologicalAnalysis: string;
     weight: number;

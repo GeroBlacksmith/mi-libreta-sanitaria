@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateVaccineDto } from './dto/create-vaccine.dto';
 import { Vaccines } from './interfaces/vaccines.interface';
 import { VaccinesSchema } from './schemas/vaccines.schema';
+import { vaccines } from '../data/vaccines';
 
 @Injectable()
 export class VaccinesService {
@@ -20,5 +21,8 @@ export class VaccinesService {
     async submitVaccination(createVaccineDto: CreateVaccineDto): Promise<any> {
         const vaccination = new this.vaccinesModel(createVaccineDto);
         return await vaccination.save();
+    }
+    async listVaccines() {
+        return await vaccines;
     }
 }

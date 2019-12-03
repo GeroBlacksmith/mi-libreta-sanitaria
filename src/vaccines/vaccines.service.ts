@@ -22,7 +22,21 @@ export class VaccinesService {
         const vaccination = new this.vaccinesModel(createVaccineDto);
         return await vaccination.save();
     }
-    async listVaccines() {
+    async listVaccines(): Promise<string[]> {
         return await vaccines;
+    }
+    async deleteRegister(id: any): Promise<any> {
+        const vaccineRegister = this.vaccinesModel.findOneAndDelete(id);
+        return await vaccineRegister;
+    }
+
+    async updateRegister(id: any, createVaccineDto: CreateVaccineDto): Promise<any> {
+        const updatedRegister = this.vaccinesModel.findOneAndUpdate(id, createVaccineDto, {new: true});
+        return await updatedRegister;
+    }
+
+    async getOneRegister(id: any): Promise<any> {
+        const vaccineRegister = this.vaccinesModel.findOne({_id: id}).exec();
+        return await vaccineRegister;
     }
 }

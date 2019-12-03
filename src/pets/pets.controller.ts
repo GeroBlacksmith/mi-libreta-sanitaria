@@ -13,6 +13,7 @@ export class PetsController {
         const pets = await this.petService.findAll();
         return res.status(HttpStatus.OK).json(pets);
     }
+
     @Get(':id')
     async getPet(@Res() res, @Param('id') id) {
         const pet = await this.petService.findOne(id);

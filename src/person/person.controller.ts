@@ -15,7 +15,7 @@ export class PersonController {
     }
 
     @Get(':id')
-    async gerPerson(@Res() res, @Param('id') id) {
+    async getPerson(@Res() res, @Param('id') id) {
         const person = await this.personService.findOne(id);
         if (!person) {
             throw new NotFoundException('Person no found');
@@ -55,6 +55,7 @@ export class PersonController {
             person,
         });
     }
+    // Not working
     @Put(':id/disable')
     async disable(@Res() res, @Query('id') id) {
         const person = await this.personService.disable(id);
@@ -66,6 +67,7 @@ export class PersonController {
             person,
         });
     }
+    // Not working
     @Put(':id/enable')
     async enable(@Res() res, @Query('id') id) {
         const person = await this.personService.disable(id);

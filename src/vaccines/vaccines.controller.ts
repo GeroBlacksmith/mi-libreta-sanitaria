@@ -1,10 +1,18 @@
-import { Controller, Get, Post, Res, Param, NotFoundException, HttpStatus, Query, Body, Put } from '@nestjs/common';
+import { Controller, Get, Post, Res, Param, NotFoundException, HttpStatus, Query, Body, Put, Delete } from '@nestjs/common';
 import { VaccinesService } from './vaccines.service';
 import { CreateVaccineDto } from './dto/create-vaccine.dto';
 
 @Controller('vaccines')
 export class VaccinesController {
     constructor(private vaccinesService: VaccinesService) {}
+    @Get(':id')
+    async getOneRegister(@Res() res, @Param('id') id) {
+        const vaccine = await this.vaccinesService.getOneRegister(id);
+        if (!vaccine) {
+            throw new NotFoundException('No register Found');
+        }
+        return res.status(HttpStatus.OK).json(vaccine);
+    }
 
     @Get('pet/:petid')
     async getAllVaccinesFromAPet(@Res() res, @Param('petid') petid) {
@@ -30,9 +38,28 @@ export class VaccinesController {
         });
     }
 
-    @Put('id')
+    @Put(':id')
     async udpateVaccineRegiter(@Res() res, @Param('id') id, createVaccineDto: CreateVaccineDto) {
-        // const vaccination = await this.vaccinesService.
-        return await null;
+        const vaccination = await this.vaccinesService.updateRegister(id, createVaccineDto);
+        if (!vaccination) {
+            throw new NotFoundException('Register not found');
+        }
+        return res.status(HttpStatus.OK).json({
+            message: 'Updated correctly',
+            vaccination,
+        });
+    }
+
+    @Delete(':id')
+    async deleteVaccineRegistration(@Res() res, @Query('id') id) {
+        const vaccineRegister = this.vaccinesService.deleteRegister(id);
+        if (!vaccineRegister) {
+            throw new NotFoundException('No register found');
+        }
+        res.status(HttpStatus.OK).json({
+            message: 'Deleted correctly',
+            vaccineRegister,
+        });
+
     }
 }

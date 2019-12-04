@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Res, Param, NotFoundException, HttpStatus, Query, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Request, Get, Post, Res, Param, NotFoundException, HttpStatus, Query, Body, Put, Delete, UseGuards } from '@nestjs/common';
 import { VaccinesService } from './vaccines.service';
 import { CreateVaccineDto } from './dto/create-vaccine.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('vaccines')
 export class VaccinesController {
     constructor(private vaccinesService: VaccinesService) {}
+
+    @UseGuards(AuthGuard('local'))
     @Get(':id')
-    async getOneRegister(@Res() res, @Param('id') id) {
+    async getOneRegister(@Request() req, @Res() res, @Param('id') id) {
         const vaccine = await this.vaccinesService.getOneRegister(id);
         if (!vaccine) {
             throw new NotFoundException('No register Found');

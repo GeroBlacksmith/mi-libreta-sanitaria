@@ -7,8 +7,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
     constructor(@InjectModel('User') private readonly usersModel: Model<Users>) {}
 
-    async getUser(id): Promise<any> {
-        const user = this.usersModel.findOne({_id: id}).exec();
+    async getUser(username): Promise<any> {
+        const user = this.usersModel.findOne({ username } ).exec();
         return await user;
     }
 

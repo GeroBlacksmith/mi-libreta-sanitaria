@@ -21,7 +21,13 @@ export class AuthService {
     async login(user: any) {
       const payload = { username: user.username, sub: user.userId };
       return {
-        access_token: this.jwtService.sign(payload),
+        access_token: this.jwtService.sign(payload)
       };
     }
+    // Front end
+    // parseJWT(token: string) {
+    //   const base64Url = token.split('.')[1];
+    //   const base64 = base64Url.replace('-', '+').replace('_', '/');
+    //   return JSON.parse(window.atob(base64));
+    // }
 }

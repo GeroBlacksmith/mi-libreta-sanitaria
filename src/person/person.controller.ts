@@ -1,19 +1,22 @@
-import { Controller, Get, Req, Body, Post, Put, Param, Res, HttpStatus, NotFoundException, Query, Delete } from '@nestjs/common';
+import { Controller, Get, Req, Body, Post, Put, Param, Res, HttpStatus, NotFoundException, Query, Delete, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { PersonService } from './person.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('persons')
 export class PersonController {
 
     constructor(private readonly personService: PersonService) {   }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     async getAllPersons(@Res() res) {
         const persons = await this.personService.findAll();
         return res.status(HttpStatus.OK).json(persons);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     async getPerson(@Res() res, @Param('id') id) {
         const person = await this.personService.findOne(id);
@@ -23,6 +26,7 @@ export class PersonController {
         return res.status(HttpStatus.OK).json(person);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     async save(@Res() res, @Body() createPersonDto: CreatePersonDto) {
         const person = await this.personService.create(createPersonDto);
@@ -32,6 +36,7 @@ export class PersonController {
         });
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id/update')
     async update(@Res() res, @Query('id') id, @Body() createPersonDto: CreatePersonDto) {
         const person = await this.personService.update(id, createPersonDto);
@@ -44,6 +49,7 @@ export class PersonController {
         });
     }
     // TODO: safe delete if person have pets
+    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
     async delete(@Res() res, @Query('id') id) {
         const person = await this.personService.delete(id);
@@ -56,6 +62,7 @@ export class PersonController {
         });
     }
     // Not working
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id/disable')
     async disable(@Res() res, @Query('id') id) {
         const person = await this.personService.disable(id);
@@ -68,6 +75,7 @@ export class PersonController {
         });
     }
     // Not working
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id/enable')
     async enable(@Res() res, @Query('id') id) {
         const person = await this.personService.disable(id);

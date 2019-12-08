@@ -3,4 +3,5 @@ export class CreatePersonDto {
     readonly address: string;
     readonly telephone: string;
     readonly active: boolean;
+    readonly userid: string;
 }

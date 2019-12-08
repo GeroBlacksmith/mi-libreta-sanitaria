@@ -3,4 +3,5 @@ export interface Person {
     address: string;
     telephone: string;
     active: boolean;
+    userid: string;
 }

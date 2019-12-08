@@ -17,6 +17,7 @@ export class VaccinesController {
         return res.status(HttpStatus.OK).json(vaccine);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('pet/:petid')
     async getAllVaccinesFromAPet(@Res() res, @Param('petid') petid) {
         const vaccines = await this.vaccinesService.getAllVaccinesFromPet(petid);
@@ -26,12 +27,14 @@ export class VaccinesController {
         return res.status(HttpStatus.OK).json(vaccines);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('list')
     async listVaccines(@Res() res) {
         const listVaccines = await this.vaccinesService.listVaccines();
         return res.status(HttpStatus.OK).json(listVaccines);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     async submitAVaccineToAPet(@Res() res, @Body() createVaccineDto: CreateVaccineDto) {
         const vaccination = await this.vaccinesService.submitVaccination(createVaccineDto);
@@ -41,6 +44,7 @@ export class VaccinesController {
         });
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id')
     async udpateVaccineRegiter(@Res() res, @Param('id') id, createVaccineDto: CreateVaccineDto) {
         const vaccination = await this.vaccinesService.updateRegister(id, createVaccineDto);
@@ -53,6 +57,7 @@ export class VaccinesController {
         });
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
     async deleteVaccineRegistration(@Res() res, @Query('id') id) {
         const vaccineRegister = this.vaccinesService.deleteRegister(id);

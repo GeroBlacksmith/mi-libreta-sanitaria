@@ -6,4 +6,5 @@ export const PersonSchema = new Schema({
     address: String,
     telephone: String,
     active: { type: Boolean, default: true },
+    userid: { type: Schema.Types.ObjectId, ref: 'User' },
 });

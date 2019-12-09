@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
     constructor(
@@ -11,6 +12,12 @@ export class AuthService {
     // TODO use Bcrypt for the password
     async validateUser(username: string, pass: string): Promise<any> {
         const user = await this.usersService.getUser(username);
+        let isPasswordValid: boolean;
+        try {
+          isPasswordValid = await bcrypt.compare(user.password, pass);
+        } catch (error) {
+          throw new InternalServerErrorException(`An error occurred during password comparision.`);
+        }
         if (user && user.password === pass) {
           const { password, ...result } = user;
           return result;
@@ -21,13 +28,7 @@ export class AuthService {
     async login(user: any) {
       const payload = { username: user.username, sub: user.userId };
       return {
-        access_token: this.jwtService.sign(payload)
+        access_token: this.jwtService.sign(payload),
       };
     }
-    // Front end
-    // parseJWT(token: string) {
-    //   const base64Url = token.split('.')[1];
-    //   const base64 = base64Url.replace('-', '+').replace('_', '/');
-    //   return JSON.parse(window.atob(base64));
-    // }
 }

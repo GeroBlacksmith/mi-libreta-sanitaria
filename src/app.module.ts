@@ -8,8 +8,9 @@ import { PersonModule } from './person/person.module';
 import { VaccinesModule } from './vaccines/vaccines.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { StoryModule } from './story/story.module';
 @Module({
-  imports: [ MongooseModule.forRoot('mongodb://localhost/nest'), PetsModule, PersonModule, VaccinesModule, AuthModule, UsersModule],
+  imports: [ MongooseModule.forRoot('mongodb://localhost/nest'), PetsModule, PersonModule, VaccinesModule, AuthModule, UsersModule, StoryModule],
   controllers: [AppController],
   providers: [AppService],
 })

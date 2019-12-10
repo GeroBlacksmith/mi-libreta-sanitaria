@@ -9,8 +9,18 @@ import { VaccinesModule } from './vaccines/vaccines.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { StoryModule } from './story/story.module';
+import { ParasitologicalsModule } from './parasitologicals/parasitologicals.module';
 @Module({
-  imports: [ MongooseModule.forRoot('mongodb://localhost/nest'), PetsModule, PersonModule, VaccinesModule, AuthModule, UsersModule, StoryModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost/nest'),
+    UsersModule,
+    AuthModule,
+    PersonModule,
+    PetsModule,
+    VaccinesModule,
+    ParasitologicalsModule,
+    StoryModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

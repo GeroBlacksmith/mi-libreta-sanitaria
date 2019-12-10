@@ -10,7 +10,7 @@ import { CreateParasitologicalsDto } from './dto/create-parasitologicals.dto';
 @Injectable()
 export class ParasitologicalsService {
 
-    constructor(@InjectModel('Parasitologicals') private readonly parasitologicalsModel: Model<Parasitologicals>) {}
+    constructor(@InjectModel('Parasitological') private readonly parasitologicalsModel: Model<Parasitologicals>) {}
 
     async getAllParasitologicalsFromPet(petid: any): Promise<any> {
         const parasitologicalsFromPet = await this.parasitologicalsModel.find({pet: petid});

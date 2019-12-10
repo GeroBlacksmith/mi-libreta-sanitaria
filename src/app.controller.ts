@@ -12,7 +12,7 @@ export class AppController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  getHello(@Res() res): string {
+  getHello(@Res() res) {
     return res.status(HttpStatus.OK).json({
       message: 'Jwt is working',
     });

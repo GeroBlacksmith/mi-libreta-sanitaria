@@ -1,6 +1,9 @@
 export interface Story {
     title: string;
     description: string;
-    logs: [string];
+    logs: [{
+        dateOfLog: Date;
+        story: string;
+    }];
     pet: string; // Person id
 }

@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { StoryModule } from './story/story.module';
 import { ParasitologicalsModule } from './parasitologicals/parasitologicals.module';
+import { AssetsModule } from './assets/assets.module';
+
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/nest'),
@@ -20,6 +22,7 @@ import { ParasitologicalsModule } from './parasitologicals/parasitologicals.modu
     VaccinesModule,
     ParasitologicalsModule,
     StoryModule,
+    AssetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

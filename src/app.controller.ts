@@ -10,7 +10,7 @@ export class AppController {
     private readonly appService: AppService,
     private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Get()
   getHello(@Res() res) {
     return res.status(HttpStatus.OK).json({

@@ -8,7 +8,7 @@ export class UsersController {
 
     @Post('register')
     async register(@Res() res, @Body() createUserDto: CreateUserDto) {
-        const user = this.userService.createUser(createUserDto);
+        const user = await this.userService.createUser(createUserDto);
         if (!user) {
             throw new NotFoundException('Error creating user');
         }

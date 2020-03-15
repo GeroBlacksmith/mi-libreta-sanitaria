@@ -25,7 +25,15 @@ export class PersonController {
         }
         return res.status(HttpStatus.OK).json(person);
     }
-
+    @UseGuards(AuthGuard('jwt'))
+    @Get('name/:name')
+    async getPersonByName(@Res() res, @Param('name') name) {
+        const person = await this.personService.findOneByName(name);
+        if (!person) {
+            throw new NotFoundException('Person no found');
+        }
+        return res.status(HttpStatus.OK).json(person);
+    }
     @UseGuards(AuthGuard('jwt'))
     @Post()
     async save(@Res() res, @Body() createPersonDto: CreatePersonDto) {
@@ -48,6 +56,7 @@ export class PersonController {
             person,
         });
     }
+
     // TODO: safe delete if person have pets
     @UseGuards(AuthGuard('jwt'))
     @Delete(':id')

@@ -18,10 +18,10 @@ export class AppController {
     });
   }
 
-  @UseGuards(AuthGuard('local'))
+  // @UseGuards(AuthGuard('local'))
   @Post('auth/login')
   async login(@Request() req) {
-    return this.authService.login(req.user);
+    return await this.authService.login(req.body);
   }
 
 }

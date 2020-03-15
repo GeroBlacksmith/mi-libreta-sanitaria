@@ -3,5 +3,5 @@ export class CreatePetDto {
     readonly birthDate: Date;
     readonly race: string;
     readonly color: string;
-    readonly propietary: string; // Person id
+    readonly propietary: any; // Person id
 }

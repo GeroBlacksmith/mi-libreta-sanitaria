@@ -23,6 +23,10 @@ export class PersonService {
         const person = await this.personModel.findOne({name:name}).exec();
         return person;
     }
+    async findOneById(id): Promise<Person> {
+        const person = await this.personModel.findOne({userid:id}).exec();
+        return person;
+    }
     async create(createPersonDto: CreatePersonDto): Promise<Person> {
         const createPerson = await this.personModel(createPersonDto);
         return createPerson.save();

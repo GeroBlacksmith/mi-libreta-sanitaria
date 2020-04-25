@@ -35,6 +35,15 @@ export class PersonController {
         return res.status(HttpStatus.OK).json(person);
     }
     @UseGuards(AuthGuard('jwt'))
+    @Get('userid/:id')
+    async getPersonByUserId(@Res() res, @Param('id') id) {
+        const person = await this.personService.findOneById(id);
+        if (!person) {
+            throw new NotFoundException('Person no found');
+        }
+        return res.status(HttpStatus.OK).json(person);
+    }
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     async save(@Res() res, @Body() createPersonDto: CreatePersonDto) {
         const person = await this.personService.create(createPersonDto);

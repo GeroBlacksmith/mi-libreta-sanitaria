@@ -16,8 +16,10 @@ export class UsersController {
         const users = await this.userService.getUser(username);
         return res.status(HttpStatus.OK).json(users);
     }
+
     @Post('register')
-    async register(@Res() res, @Body() createUserDto: CreateUserDto) {
+    async register(@Res() res, @Body() createUserDto) {
+        console.log(createUserDto);
         const user = await this.userService.createUser(createUserDto);
         if (!user) {
             throw new NotFoundException('Error creating user');

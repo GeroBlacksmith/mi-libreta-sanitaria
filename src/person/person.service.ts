@@ -31,6 +31,10 @@ export class PersonService {
         const createPerson = await this.personModel(createPersonDto);
         return createPerson.save();
     }
+    async createAfterRegister(userId){
+        const emptyPerson = await this.personModel({userId});
+        return emptyPerson.save();
+    }
     async update(id, createPersonDto): Promise<Person> {
         const updatedPerson = await this.personModel.findOneAndUpdate(id, createPersonDto, {new: true} );
         return updatedPerson;

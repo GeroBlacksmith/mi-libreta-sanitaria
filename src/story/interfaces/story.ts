@@ -5,5 +5,5 @@ export interface Story {
         dateOfLog: Date;
         story: string;
     }];
-    pet: string; // Person id
+    pet: string; // Pet id
 }

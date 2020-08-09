@@ -8,5 +8,6 @@ import { PersonService } from './person.service';
     imports: [ MongooseModule.forFeature([{ name: 'Person', schema: PersonSchema }])],
     controllers: [PersonController],
     providers: [PersonService],
+    exports: [PersonService],
 })
 export class PersonModule {}

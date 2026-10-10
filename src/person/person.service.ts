@@ -28,11 +28,11 @@ export class PersonService {
         return person;
     }
     async create(createPersonDto: CreatePersonDto): Promise<Person> {
-        const createPerson = await this.personModel(createPersonDto);
+        const createPerson = await new this.personModel(createPersonDto);
         return createPerson.save();
     }
     async createAfterRegister(userId){
-        const emptyPerson = await this.personModel({userId});
+        const emptyPerson = await new this.personModel({userId});
         return emptyPerson.save();
     }
     async update(id, createPersonDto): Promise<Person> {

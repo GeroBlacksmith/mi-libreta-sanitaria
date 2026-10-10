@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "start:dev": "deno run --allow-all --unsafe-proto npm:@nestjs/cli@^6.9.0 start --watch"
+  }
+}

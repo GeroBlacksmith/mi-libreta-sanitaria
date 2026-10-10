@@ -9,6 +9,9 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
+# watch mode with Deno
+$ deno task start:dev
+
 # production mode
 $ npm run start:prod
 ```
